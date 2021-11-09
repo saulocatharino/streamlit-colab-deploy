@@ -15,13 +15,10 @@ while ret:
   ret, frame = cap.read()
   frame = cv2.resize(frame, None, fx=.5, fy=.5)
   faces, confidences = cvlib.detect_face(frame)
-  if len(faces)<1:
-    continue
+
   for face in faces:
     face_img = frame[face[1]:face[3],face[0]:face[2]]
     label, confidence = cvlib.detect_gender(face_img, enable_gpu=False)
-    print(label,confidence)
-    print(np.argmax(confidence))
     classe = np.argmax(confidence)
     conf = confidence[classe]
     x1,y1,x2,y2 = face[0],face[1],face[2],face[3]
